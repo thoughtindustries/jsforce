@@ -3076,19 +3076,19 @@ var StreamingExtension = {};
  *
  * ```javascript
  * const conn = new jsforce.Connection({ … });
- * 
+ *
  * const channel = "/event/My_Event__e";
- * 
+ *
  * // Exit the Node process when auth fails
  * const exitCallback = () => process.exit(1);
  * const authFailureExt = new jsforce.StreamingExtension.AuthFailure(exitCallback);
- * 
+ *
  * const fayeClient = conn.streaming.createClient([ authFailureExt ]);
- * 
+ *
  * const subscription = fayeClient.subscribe(channel, data => {
  *   console.log('topic received data', data);
  * });
- * 
+ *
  * subscription.cancel();
  * ```
  *
@@ -3114,29 +3114,29 @@ StreamingExtension.AuthFailure = function(failureCallback) {
  *
  * Modified from original Salesforce demo source code:
  * https://github.com/developerforce/SalesforceDurableStreamingDemo/blob/3d4a56eac956f744ad6c22e6a8141b6feb57abb9/staticresources/cometdReplayExtension.resource
- * 
+ *
  * Example usage:
  *
  * ```javascript
  * const conn = new jsforce.Connection({ … });
- * 
+ *
  * const channel = "/event/My_Event__e";
  * const replayId = -2; // -2 is all retained events
- * 
+ *
  * const replayExt = new jsforce.StreamingExtension.Replay(channel, replayId);
- * 
+ *
  * const fayeClient = conn.streaming.createClient([ replayExt ]);
- * 
+ *
  * const subscription = fayeClient.subscribe(channel, data => {
  *   console.log('topic received data', data);
  * });
- * 
+ *
  * subscription.cancel();
  * ```
  */
 StreamingExtension.Replay = function(channel, replayId) {
   var REPLAY_FROM_KEY = "replay";
-  
+
   var _extensionEnabled = replayId != null ? true : false;
   var _replay = replayId;
   var _channel = channel;
@@ -3163,7 +3163,7 @@ StreamingExtension.Replay = function(channel, replayId) {
     }
     callback(message);
   }
-  
+
   this.outgoing = function(message, callback) {
     if (message.channel === '/meta/subscribe') {
       if (_extensionEnabled) {
@@ -3392,46 +3392,46 @@ Streaming.prototype.unsubscribe = function(name, listener) {
  * See Faye docs for implementation details: https://faye.jcoglan.com/browser/extensions.html
  *
  * Example usage:
- * 
+ *
  * ```javascript
  * // Establish a Salesforce connection. (Details elided)
  * const conn = new jsforce.Connection({ … });
- * 
+ *
  * const fayeClient = conn.streaming.createClient();
- * 
+ *
  * const subscription = fayeClient.subscribe(channel, data => {
  *   console.log('topic received data', data);
  * });
- * 
+ *
  * subscription.cancel();
  * ```
- * 
+ *
  * Example with extensions, using Replay & Auth Failure extensions in a server-side Node.js app:
- * 
+ *
  * ```javascript
  * // Establish a Salesforce connection. (Details elided)
  * const conn = new jsforce.Connection({ … });
- * 
+ *
  * const channel = "/event/My_Event__e";
  * const replayId = -2; // -2 is all retained events
- * 
+ *
  * const exitCallback = () => process.exit(1);
  * const authFailureExt = new jsforce.StreamingExtension.AuthFailure(exitCallback);
- * 
+ *
  * const replayExt = new jsforce.StreamingExtension.Replay(channel, replayId);
- * 
+ *
  * const fayeClient = conn.streaming.createClient([
  *   authFailureExt,
  *   replayExt
  * ]);
- * 
+ *
  * const subscription = fayeClient.subscribe(channel, data => {
  *   console.log('topic received data', data);
  * });
- * 
+ *
  * subscription.cancel();
  * ```
- * 
+ *
  * @param {Array} Extensions - Optional, extensions to apply to the Faye client
  * @returns {FayeClient} - Faye client object
  */
@@ -3448,7 +3448,7 @@ jsforce.on('connection:new', function(conn) {
 });
 
 /*
- * 
+ *
  */
 jsforce.StreamingExtension = StreamingExtension;
 
@@ -5809,7 +5809,7 @@ Connection.prototype.loginBySoap = function(username, password, callback) {
 };
 
 /**
- * Logout the current session 
+ * Logout the current session
  *
  * @param {Boolean} [revoke] - Revokes API Access if set to true
  * @param {Callback.<undefined>} [callback] - Callback function
@@ -6621,7 +6621,7 @@ inherits(SessionRefreshDelegate, events.EventEmitter);
  */
 SessionRefreshDelegate.prototype.refresh = function(since, callback) {
   // Callback immediately When refreshed after designated time
-  if (this._lastRefreshedAt > since) { return callback(); }
+  if (this._lastRefreshedAt > since || true) { return callback(); }
   var self = this;
   var conn = this._conn;
   var logger = conn._logger;
@@ -8320,7 +8320,7 @@ QuickAction.prototype.defaultValues = function(contextId, callback) {
 
 /**
  * Execute the action for given context Id and record information
- * 
+ *
  * @param {String} contextId - Context record ID of the action
  * @param {Record} record - Input record information for the action
  * @param {Callback.<QuickAction~QuickActionResult>} [callback] - Callback function

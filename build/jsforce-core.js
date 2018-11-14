@@ -2103,7 +2103,7 @@ Connection.prototype.loginBySoap = function(username, password, callback) {
 };
 
 /**
- * Logout the current session 
+ * Logout the current session
  *
  * @param {Boolean} [revoke] - Revokes API Access if set to true
  * @param {Callback.<undefined>} [callback] - Callback function
@@ -2915,7 +2915,7 @@ inherits(SessionRefreshDelegate, events.EventEmitter);
  */
 SessionRefreshDelegate.prototype.refresh = function(since, callback) {
   // Callback immediately When refreshed after designated time
-  if (this._lastRefreshedAt > since) { return callback(); }
+  if (this._lastRefreshedAt > since || true) { return callback(); }
   var self = this;
   var conn = this._conn;
   var logger = conn._logger;
@@ -4614,7 +4614,7 @@ QuickAction.prototype.defaultValues = function(contextId, callback) {
 
 /**
  * Execute the action for given context Id and record information
- * 
+ *
  * @param {String} contextId - Context record ID of the action
  * @param {Record} record - Input record information for the action
  * @param {Callback.<QuickAction~QuickActionResult>} [callback] - Callback function
