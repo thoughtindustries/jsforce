@@ -1,6 +1,6 @@
 {
   "author": "Shinichi Tomita <shinichi.tomita@gmail.com>",
-  "name": "@thoughtindustries/jsforce-without-refresh",
+  "name": "ti-jsforce-without-refresh",
   "description": "Salesforce API Library for JavaScript WITHOUT REFRESH",
   "keywords": [
     "salesforce",
